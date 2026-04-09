@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Longhorn Construction | Strawn, TX</title>
+    <title>Longhorn Construction | Kirk Rieves, General Contractor | Strawn, TX</title>
     <style>
         /* CSS Variables for Theme Colors */
         :root {
             --primary-black: #121212;
             --secondary-black: #1e1e1e;
-            --primary-orange: #f26522;
+            --primary-orange: #f26522; /* Rust-orange match */
             --secondary-orange: #d95316;
             --primary-white: #ffffff;
             --light-gray: #f5f5f5;
             --text-gray: #777777;
+            --dark-metal: #2a2a2a;
+            --wood-tone: #b8a68a;
         }
 
         /* Reset & Base Styles */
@@ -29,11 +31,13 @@
             background-color: var(--primary-white);
             color: var(--primary-black);
             line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll from large elements */
         }
 
         h1, h2, h3, h4 {
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            font-weight: 800;
         }
 
         a {
@@ -52,16 +56,30 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 2000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
         }
 
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Optional small logo for nav */
+        /* .nav-logo-icon {
+            height: 40px;
+            width: auto;
+            display: block;
+        } */
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.6rem;
+            font-weight: 900;
             color: var(--primary-white);
-            border-left: 4px solid var(--primary-orange);
-            padding-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .logo span {
@@ -78,16 +96,32 @@
             font-size: 0.9rem;
             font-weight: bold;
             transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-orange);
+            transition: width 0.3s;
         }
 
         .nav-links a:hover {
             color: var(--primary-orange);
         }
 
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+            background-color: var(--primary-black);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -96,13 +130,16 @@
             padding: 0 5%;
             color: var(--primary-white);
             margin-top: 60px; /* Offset for fixed nav */
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
             margin-bottom: 1rem;
             max-width: 900px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
         }
 
         .hero h1 span {
@@ -112,48 +149,75 @@
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2.5rem;
-            max-width: 600px;
+            max-width: 700px;
             color: #cccccc;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8);
         }
 
         .btn {
-            padding: 1rem 2.5rem;
+            padding: 1rem 3rem;
             background-color: var(--primary-orange);
             color: var(--primary-white);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: bold;
             text-transform: uppercase;
             border: none;
             border-radius: 3px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: inline-block;
         }
 
         .btn:hover {
             background-color: var(--secondary-orange);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.5);
         }
 
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary-orange);
-            color: var(--primary-orange);
-            margin-left: 1rem;
+        /* Entrance Sign Section (The Longhorn and Number) */
+        .entrance-sign-section {
+            background-color: var(--secondary-black);
+            padding: 8rem 5% 6rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            border-bottom: 5px solid var(--primary-orange);
         }
 
-        .btn-outline:hover {
-            background-color: var(--primary-orange);
-            color: var(--primary-white);
+        .entrance-sign-container {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Replace 'image_3.png' with your actual generated image filename */
+        .entrance-sign-image {
+            width: 100%;
+            height: auto;
+            max-width: 1200px; /* Adjust as needed */
+            object-fit: contain;
+            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.9));
+            transition: transform 0.5s ease-out;
+        }
+
+        .entrance-sign-image:hover {
+            transform: scale(1.02);
         }
 
         /* Section Global */
         section {
-            padding: 5rem 5%;
+            padding: 6rem 5%;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 3rem;
             font-weight: 800;
             position: relative;
@@ -161,83 +225,108 @@
 
         .section-title::after {
             content: '';
-            width: 60px;
-            height: 4px;
+            width: 80px;
+            height: 5px;
             background-color: var(--primary-orange);
             display: block;
-            margin: 10px auto 0;
+            margin: 15px auto 0;
         }
 
         /* About Section */
+        .about {
+            background-color: var(--light-gray);
+        }
+
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
             align-items: center;
         }
 
         .about-text h3 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
+            color: var(--primary-black);
         }
 
         .about-text p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             color: var(--text-gray);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
         }
 
         .about-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            gap: 2.5rem;
             background-color: var(--primary-black);
             color: var(--primary-white);
-            padding: 3rem;
-            border-bottom: 5px solid var(--primary-orange);
+            padding: 4rem;
+            border-left: 6px solid var(--primary-orange);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .stat-item h4 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-orange);
             margin-bottom: 0.5rem;
+            font-weight: 900;
+        }
+
+        .stat-item p {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #aaaaaa;
         }
 
         /* Services Section */
         .services {
-            background-color: var(--light-gray);
+            background-color: var(--primary-white);
         }
 
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
         }
 
         .service-card {
             background-color: var(--primary-white);
-            padding: 3rem 2rem;
+            padding: 4rem 2.5rem;
             text-align: center;
-            border-top: 4px solid transparent;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .service-card:hover {
-            border-top: 4px solid var(--primary-orange);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary-orange);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 2rem;
         }
 
         .service-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
             color: var(--primary-black);
         }
 
         .service-card p {
             color: var(--text-gray);
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
         /* Contact Section */
@@ -253,36 +342,39 @@
         .contact-container {
             display: grid;
             grid-template-columns: 1fr;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .contact-info {
             background-color: var(--secondary-black);
-            padding: 3rem;
-            border-left: 5px solid var(--primary-orange);
+            padding: 4rem;
+            border: 2px solid var(--dark-metal);
+            border-left: 6px solid var(--primary-orange);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .contact-info h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: var(--primary-orange);
         }
 
         .info-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .info-group h4 {
-            font-size: 0.9rem;
-            color: var(--text-gray);
-            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+            color: #999999;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
         }
 
         .info-group p, .info-group a {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
         }
 
@@ -293,42 +385,81 @@
         /* Footer */
         footer {
             background-color: var(--primary-black);
-            color: var(--text-gray);
+            color: #888888;
             text-align: center;
-            padding: 2rem 5%;
-            border-top: 1px solid #333;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--dark-metal);
         }
 
         /* Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Can be replaced with a hamburger menu later */
-            }
-
+        @media (max-width: 1024px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .about-grid {
                 grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .entrance-sign-image {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                display: none; /* Can be replaced with a hamburger menu */
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+
+            .hero {
+                margin-top: 110px; /* Offset for larger nav on mobile */
+                height: auto;
+                min-height: 100vh;
+                padding: 4rem 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .about-stats {
+                padding: 2rem;
+            }
+
+            .stat-item h4 {
+                font-size: 2.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                display: block;
+                margin-bottom: 1rem;
             }
 
             .btn-outline {
                 margin-left: 0;
-                margin-top: 1rem;
-                display: block;
-                width: 100%;
             }
 
-            .btn {
-                width: 100%;
-                display: block;
+            .contact-info {
+                padding: 2rem;
             }
-            
-            .hero {
-                padding-top: 80px;
-                height: auto;
-                min-height: 100vh;
+
+            .info-group p, .info-group a {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -336,9 +467,12 @@
 <body>
 
     <nav>
-        <div class="logo">Longhorn <span>Construction</span></div>
+        <div class="logo-group">
+            <div class="logo">Longhorn <span>Construction</span></div>
+        </div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
+            <li><a href="#entrance">Our Sign</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -346,23 +480,29 @@
     </nav>
 
     <header class="hero" id="home">
-        <h1>Building Excellence For Over <span>30 Years</span></h1>
-        <p>Your trusted partner in Strawn, TX for general construction, remodels, new homes, and custom outdoor living spaces. We build it right, and yes—we travel.</p>
-        <div>
+        <h1>Building the <span>Lone Star</span> State Since 1996</h1>
+        <p>Kirk Rieves, General Contractor. Specialized in custom homes, complete remodels, and unique outdoor living spaces. Based in Strawn, Texas, and serving the wider region—yes, we travel.</p>
+        <div class="hero-btns">
             <a href="#contact" class="btn">Get a Free Estimate</a>
-            <a href="#services" class="btn btn-outline">Our Services</a>
+            <a href="#services" class="btn btn-outline" style="background-color: transparent; border: 2px solid var(--primary-orange); color: var(--primary-orange); margin-left: 1rem;">View Our Services</a>
         </div>
     </header>
 
-    <section id="about">
+    <section id="entrance" class="entrance-sign-section">
+        <div class="entrance-sign-container">
+            <img src="image_3.png" alt="Massive Wrought Iron Longhorn Construction Sign and Phone Number" class="entrance-sign-image">
+        </div>
+    </section>
+
+    <section id="about" class="about">
         <div class="about-grid">
             <div class="about-text">
-                <h2>About Us</h2>
-                <div style="width: 50px; height: 3px; background-color: var(--primary-orange); margin: 15px 0 25px;"></div>
+                <h2>About Longhorn</h2>
+                <div style="width: 60px; height: 4px; background-color: var(--primary-orange); margin: 15px 0 25px;"></div>
                 <h3>Experience You Can Trust</h3>
                 <p>Led by Kirk Rieves, Longhorn Construction has been a cornerstone of quality building and general contracting for over three decades.</p>
-                <p>Whether you are looking to build a new home from the ground up, remodel your existing space, or add beautiful custom decks and porches, our team brings precision, dedication, and deep industry knowledge to every single project.</p>
-                <p>Based in Strawn, Texas, we are proud to serve our local community and surrounding areas. <strong>Will travel for the right project.</strong></p>
+                <p>Whether you are looking to build a new custom home from the ground up, remodel your existing space, or add beautiful custom decks and porches, our team brings precision, dedication, and deep industry knowledge to every single project.</p>
+                <p>Based in Strawn, Texas, we are proud to serve our local community and surrounding areas. <strong>We will travel for the right project.</strong></p>
             </div>
             <div class="about-stats">
                 <div class="stat-item">
@@ -375,11 +515,11 @@
                 </div>
                 <div class="stat-item">
                     <h4>TX</h4>
-                    <p>Based in Strawn, TX</p>
+                    <p>Proudly Based in Strawn, TX</p>
                 </div>
                 <div class="stat-item">
                     <h4>ALL</h4>
-                    <p>General Construction</p>
+                    <p>General Construction Services</p>
                 </div>
             </div>
         </div>
@@ -389,28 +529,28 @@
         <h2 class="section-title">What We Do</h2>
         <div class="service-grid">
             <div class="service-card">
-                <h3>New Homes</h3>
-                <p>We build custom homes from foundation to finish. Our team ensures every detail aligns with your vision to create the perfect living space for you and your family.</p>
+                <div class="service-icon">&#127968;</div> <h3>New Custom Homes</h3>
+                <p>We build custom homes from foundation to finish. Our team ensures every detail aligns with your vision to create the perfect living space.</p>
             </div>
             <div class="service-card">
-                <h3>Remodeling</h3>
-                <p>Transform your current house into your dream home. We handle full interior and exterior remodels, modernizing your space while adding significant value to your property.</p>
+                <div class="service-icon">&#128736;</div> <h3>Complete Remodeling</h3>
+                <p>Transform your current house into your dream home. We handle full interior and exterior remodels, modernizing your space while adding value.</p>
             </div>
             <div class="service-card">
-                <h3>Custom Decks</h3>
-                <p>Expand your outdoor living area with high-quality, durable custom decks. Built to withstand the Texas weather and perfect for entertaining guests year-round.</p>
+                <div class="service-icon">&#128731;</div> <h3>Custom Decks</h3>
+                <p>Expand your outdoor living area with high-quality, durable custom decks. Built to withstand the Texas weather and perfect for entertaining.</p>
             </div>
             <div class="service-card">
-                <h3>Porches</h3>
-                <p>Enhance your home's curb appeal and comfort with expertly crafted front and back porches. We design functional and beautiful extensions of your home.</p>
+                <div class="service-icon">&#127966;</div> <h3>Porches</h3>
+                <p>Enhance your home's curb appeal and comfort with expertly crafted front and back porches, designed as functional extensions of your home.</p>
             </div>
             <div class="service-card">
-                <h3>General Construction</h3>
-                <p>No project is too complex. With 30 years of experience, we handle all phases of general construction, ensuring structural integrity and premium craftsmanship.</p>
+                <div class="service-icon">&#128296;</div> <h3>General Construction</h3>
+                <p>With 30 years of experience, we handle all phases of general construction, ensuring structural integrity and premium craftsmanship for any project.</p>
             </div>
             <div class="service-card">
-                <h3>Travel Services</h3>
-                <p>We don't just stay local. If you have a project outside of Strawn, TX, let us know. We are equipped and willing to travel to bring our expertise to your job site.</p>
+                <div class="service-icon">&#128666;</div> <h3>Will Travel</h3>
+                <p>We bring our expertise to your job site, wherever it may be. If you have a project outside of Strawn, TX, let us know—we are equipped to travel.</p>
             </div>
         </div>
     </section>
@@ -419,16 +559,16 @@
         <h2 class="section-title">Get In Touch</h2>
         <div class="contact-container">
             <div class="contact-info">
-                <h3>Ready to start your project?</h3>
-                <p style="margin-bottom: 2rem; color: #ccc;">Contact Kirk Rieves directly to discuss your construction needs, request an estimate, or inquire about our travel availability.</p>
+                <h3>Ready to Build?</h3>
+                <p style="margin-bottom: 2rem; color: #ccc;">Contact Kirk Rieves directly to discuss your construction project, request a free estimate, or inquire about our services and availability.</p>
                 
                 <div class="info-group">
-                    <h4>Owner / Operator</h4>
+                    <h4>Owner / General Contractor</h4>
                     <p>Kirk Rieves</p>
                 </div>
                 
                 <div class="info-group">
-                    <h4>Phone</h4>
+                    <h4>Call or Text</h4>
                     <a href="tel:+18179332704">(817) 933-2704</a>
                 </div>
                 
@@ -446,7 +586,8 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Longhorn Construction. All Rights Reserved.</p>
+        <p>&copy; 2024 Longhorn Construction. All Rights Reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px;">Kirk Rieves, General Contractor.</p>
     </footer>
 
 </body>
